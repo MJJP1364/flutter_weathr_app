@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 class Themes {
   static final lightTheme = ThemeData(
     // colorScheme: const ColorScheme.light(),
-    // appBarTheme: const AppBarTheme(backgroundColor: Colors.green),
     useMaterial3: true,
     brightness: Brightness.light,
-    primaryColor: Colors.blue,
+    primaryColor: Colors.blue[300],
     hintColor: Colors.orange,
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: Colors.black, fontSize: 16),
@@ -28,9 +27,8 @@ class Themes {
 
   static final darkTheme = ThemeData(
     // colorScheme: const ColorScheme.dark(),
-    // appBarTheme: const AppBarTheme(backgroundColor: Colors.grey),
     brightness: Brightness.dark,
-    primaryColor: Colors.blueGrey,
+    primaryColor: Colors.blueGrey[900],
     hintColor: Colors.orangeAccent,
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: Colors.white, fontSize: 16),

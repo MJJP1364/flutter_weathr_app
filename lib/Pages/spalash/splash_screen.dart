@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/Core/Utils/themes/theme_controller.dart';
+import 'package:weather_app/Core/Utils/themes/themes.dart';
 import 'package:weather_app/Pages/WeatherScreen/weather_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // منتقل کردن خودکار به صفحه بعدی پس از 5 ثانیه
     Future.delayed(const Duration(seconds: 5), () {
-      Get.off(() =>  WeatherScreen());
+      Get.off(() => WeatherScreen());
     });
   }
 
@@ -49,7 +50,9 @@ class _SplashScreenState extends State<SplashScreen>
       () => Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor:
-            _themeController.isDarkMode.value ? Colors.black : Colors.blue[800],
+            _themeController.isDarkMode.value
+                ? Themes.darkTheme.primaryColor
+                : Themes.lightTheme.primaryColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
@@ -102,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(height: 80),
 
                     const Text(
-                      "Get to know your\n weather maps and radar",
+                      "Get to know your weather maps and\n radar recipications forcast",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white70,
