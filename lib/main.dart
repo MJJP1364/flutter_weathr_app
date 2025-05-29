@@ -32,6 +32,8 @@ class FlutterWeatherApp extends StatelessWidget {
       darkTheme: Themes.darkTheme,
 
       // theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+
+      //--------------------------------------------------------------
       initialBinding: AllBindings(),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
