@@ -1,111 +1,124 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weather_app/Core/Utils/consts.dart';
 import 'package:weather_app/Core/Utils/themes/theme_controller.dart';
+import 'package:weather_app/Pages/WeatherScreen/weather_screen.dart';
 
-class SplashScreen extends StatelessWidget {
-  SplashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
-  final themeController = Get.put(ThemeController());
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _fadeInAnimation;
+
+  final ThemeController _themeController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // تنظیمات انیمیشن
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..forward();
+
+    _fadeInAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInCirc),
+    );
+
+    // منتقل کردن خودکار به صفحه بعدی پس از 5 ثانیه
+    Future.delayed(const Duration(seconds: 5), () {
+      Get.off(() => const WeatherScreen());
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: backgroundColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: IconButton(
-              onPressed: () {
-                if (Get.isDarkMode) {
-                  themeController.changeThemeMode(ThemeMode.light);
-                  //   or-------------
-                  // themeController.changeTheme(Themes.lightThemes);
-                  // save theme to GetStorage
-                  themeController.saveTheme(false);
-                } else {
-                  themeController.changeThemeMode(ThemeMode.dark);
-                  //   or-------------
-                  // themeController.changeTheme(Themes.darkThemes);
-                  // save theme to GetStorage
-                  themeController.saveTheme(true);
-                }
-              },
-
-              icon: Icon(Icons.settings),
-            ),
+    return Obx(
+      () => Scaffold(
+        extendBodyBehindAppBar: true,
+        backgroundColor:
+            _themeController.isDarkMode.value ? Colors.black : Colors.blue[800],
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Weather App',
+            style: TextStyle(color: Colors.white, fontSize: 20),
           ),
-        ],
-
-        title: const Text(
-          'Weather App',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: IconButton(
+                onPressed: _themeController.toggleTheme,
+                icon: Obx(
+                  () => Icon(
+                    _themeController.isDarkMode.value
+                        ? Icons.light_mode
+                        : Icons.dark_mode,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40),
-          child: Column(
-            children: [
-              Center(
-                child: Text(
-                  'Discover The\nWeather In Your City',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 32,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.5,
-                    height: 1.2,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Image.asset('assets/cloudy.png', height: size.height * 0.4),
-              Spacer(),
-              Center(
-                child: Text(
-                  'Get to know your weather maps and\nradar recipitiations forcast',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: buttonColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                  ),
-                  onPressed: () {},
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    child: Text(
-                      'Get Started',
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            // انیمیشن متن و تصویر
+            Center(
+              child: FadeTransition(
+                opacity: _fadeInAnimation,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Discover The\nWeather In Your City',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 32,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.5,
+                        height: 1.2,
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    Image.asset('assets/cloudy.png', height: 300),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+
+            // دکمه وارد شدن
+            Positioned(
+              bottom: 40,
+              child: Opacity(
+                opacity: _fadeInAnimation.value,
+                child: const Text(
+                  "Get to know your weather maps and radar",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

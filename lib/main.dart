@@ -15,6 +15,7 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
+  Get.put(ThemeController());
 
   runApp(const FlutterWeatherApp());
 }
@@ -26,15 +27,13 @@ class FlutterWeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Weather App',
+      initialBinding: AllBindings(),
 
-      themeMode: ThemeController().theme,
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,
-
-      // theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      themeMode: Get.find<ThemeController>().theme,
 
       //--------------------------------------------------------------
-      initialBinding: AllBindings(),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

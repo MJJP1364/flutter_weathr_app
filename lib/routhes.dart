@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:weather_app/Pages/Home/home_view.dart';
+import 'package:weather_app/Pages/WeatherScreen/weather_screen.dart';
 import 'package:weather_app/Pages/spalash/splash_screen.dart';
 
 List<GetPage> routes = [
   GetPage(
     name: '/',
-    page: () => const HomePage(),
+    page: () => const WeatherScreen(),
     // binding: HomeBinding(),
   ),
 
