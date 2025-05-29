@@ -11,7 +11,7 @@ List<GetPage> routes = [
 
   GetPage(
     name: '/splash',
-    page: () => const SplashScreen(),
+    page: () => SplashScreen(),
     // binding: SplashBinding(),
   ),
 
