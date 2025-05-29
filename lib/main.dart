@@ -20,6 +20,7 @@ Future<void> main() async {
   runApp(const FlutterWeatherApp());
 }
 
+//<<<<<<< HEAD
 class FlutterWeatherApp extends StatelessWidget {
   const FlutterWeatherApp({super.key});
 
