@@ -8,5 +8,6 @@ class AllBindings implements Bindings {
     // Add all your controllers here
     Get.lazyPut<HomeController>(() => HomeController() , fenix: true);
     
+    
   }
 }

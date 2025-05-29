@@ -1,15 +1,20 @@
-
 import 'package:get/get.dart';
 import 'package:weather_app/Pages/Home/home_view.dart';
+import 'package:weather_app/Pages/spalash/splash_screen.dart';
 
-List<GetPage> routes =[
+List<GetPage> routes = [
   GetPage(
     name: '/',
     page: () => const HomePage(),
     // binding: HomeBinding(),
   ),
 
-  
+  GetPage(
+    name: '/splash',
+    page: () => const SplashScreen(),
+    // binding: SplashBinding(),
+  ),
+
   // GetPage(
   //   name: '/login',
   //   page: () => const LoginPage(),
@@ -30,4 +35,4 @@ List<GetPage> routes =[
   //   page: () => const SettingsPage(),
   //   binding: SettingsBinding(),
   // ),
-] ;
+];
