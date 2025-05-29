@@ -5,7 +5,7 @@ import 'package:weather_app/Pages/spalash/splash_screen.dart';
 List<GetPage> routes = [
   GetPage(
     name: '/',
-    page: () => const WeatherScreen(),
+    page: () => WeatherScreen(),
     // binding: HomeBinding(),
   ),
 

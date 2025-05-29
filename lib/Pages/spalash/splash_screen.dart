@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/Core/Utils/themes/theme_controller.dart';
@@ -35,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // منتقل کردن خودکار به صفحه بعدی پس از 5 ثانیه
     Future.delayed(const Duration(seconds: 5), () {
-      Get.off(() => const WeatherScreen());
+      Get.off(() =>  WeatherScreen());
     });
   }
 
@@ -56,10 +54,10 @@ class _SplashScreenState extends State<SplashScreen>
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text(
-            'Weather App',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
+          // title: const Text(
+          //   'Weather App',
+          //   style: TextStyle(color: Colors.white, fontSize: 20),
+          // ),
           centerTitle: true,
           actions: [
             Padding(
@@ -99,22 +97,20 @@ class _SplashScreenState extends State<SplashScreen>
                         height: 1.2,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 40),
                     Image.asset('assets/cloudy.png', height: 300),
-                  ],
-                ),
-              ),
-            ),
+                    const SizedBox(height: 80),
 
-            // دکمه وارد شدن
-            Positioned(
-              bottom: 40,
-              child: Opacity(
-                opacity: _fadeInAnimation.value,
-                child: const Text(
-                  "Get to know your weather maps and radar",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                    const Text(
+                      "Get to know your\n weather maps and radar",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
