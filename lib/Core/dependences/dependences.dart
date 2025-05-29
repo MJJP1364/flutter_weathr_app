@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:weather_app/Core/Utils/themes/theme_controller.dart';
+// import 'package:weather_app/Core/Utils/themes/theme_controller.dart';
 import 'package:weather_app/Pages/WeatherScreen/weatherScreen_controller.dart';
 
 class AllBindings implements Bindings {
@@ -10,6 +10,5 @@ class AllBindings implements Bindings {
       () => WeatherscreenController(),
       fenix: true,
     );
-    Get.lazyPut<ThemeController>(() => ThemeController(), fenix: true);
   }
 }
