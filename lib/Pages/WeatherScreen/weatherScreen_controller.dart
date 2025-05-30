@@ -133,7 +133,7 @@ class WeatherscreenController extends GetxController {
   final String _baseUrl = 'http://api.weatherapi.com/v1';
 
   // State Variables
-  var location = ''.obs;
+  var location = 'Tabriz'.obs;
   var country = ''.obs;
   var currentTemp = '0'.obs;
   var hourly = <dynamic>[].obs;
@@ -165,26 +165,44 @@ class WeatherscreenController extends GetxController {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
 
-        // Update state with new data
-        location.value = data['location']['name'];
-        country.value = data['location']['country'];
-        currentTemp.value = data['current']['temp_c'].toString();
-        hourly.value = data['current']['hour'] ?? [];
-        next7DayWeather.value = data['forecast']['forecastday'] ?? [];
+        // 1️⃣ چک کردن location
 
-        // Fetch and update past weather
+        final locationData = data['location'] as Map<String, dynamic>?;
+        if (locationData != null) {
+          location.value = locationData['name'] ?? 'Unknown';
+          country.value = locationData['country'] ?? 'Unknown';
+        }
+
+        // 2️⃣ چک کردن current
+        final currentData = data['current'] as Map<String, dynamic>?;
+        if (currentData != null) {
+          currentTemp.value = currentData['temp_c']?.toString() ?? '0';
+          hourly.value = currentData['hour'] as List? ?? [];
+        }
+
+        // 3️⃣ چک کردن forecast
+        final forecastData = data['forecast'] as Map<String, dynamic>?;
+        if (forecastData != null) {
+          next7DayWeather.value = forecastData['forecastday'] as List? ?? [];
+        } else {
+          next7DayWeather.value = []; // لیست خالی در صورت عدم وجود
+        }
+
+        // 4️⃣ دریافت سابقه هوا
         past7DayWeather.value = await getPast7DayWeather(query);
       } else {
         throw Exception(
           'Failed to load weather data (Status: ${response.statusCode})',
         );
-
-
-       
       }
     } catch (e) {
-      errorMessage.value = e.toString();
-      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
+      errorMessage.value = "Failed to load weather data";
+      Get.snackbar(
+        "Error",
+        errorMessage.value,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      print('Error fetching current weather: $e');
     } finally {
       isLoading.value = false;
     }
