@@ -24,6 +24,8 @@ class WeatherscreenController extends GetxController {
   final RxList<dynamic> hourlyForecast = <dynamic>[].obs;
   RxInt cloud = 0.obs;
 
+
+
   // Loading & Error Handling
   var isLoading = false.obs;
   var errorMessage = ''.obs;
@@ -101,6 +103,10 @@ class WeatherscreenController extends GetxController {
         final hourlyData = currentData?['hour'] as List? ?? [];
         hourlyForecast.value =
             hourlyData.map((hour) => Map<String, dynamic>.from(hour)).toList();
+
+        final forecastToday = data['forecast']['forecastday'][0];
+        final dayData =
+            forecastToday['day']; // شامل maxtemp_c, mintemp_c, condition
 
         // 3️⃣ چک کردن forecast
         final forecastData = data['forecast'] as Map<String, dynamic>?;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/Core/Utils/themes/theme_controller.dart';
-import 'package:weather_app/Pages/WeatherScreen/weatherScreen_controller.dart';
+// import 'package:weather_app/Pages/WeatherScreen/weatherScreen_controller.dart';
 
 // ignore: must_be_immutable
 class TodayForecastCard extends StatelessWidget {
@@ -14,11 +14,11 @@ class TodayForecastCard extends StatelessWidget {
     return DateFormat.j().format(time);
   }
 
-  final WeatherscreenController _weatherscreenController = Get.find();
+  // final WeatherscreenController _weatherscreenController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    hourly = _weatherscreenController.hourlyForecast;
+    // hourly = _weatherscreenController.;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Container(
