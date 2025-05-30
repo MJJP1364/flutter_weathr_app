@@ -106,7 +106,7 @@ class WeatherScreen extends StatelessWidget {
 
               if (_weatherscreenController.iconUrl.value.isNotEmpty)
                 SizedBox(
-                  width: size.width * 0.8,
+                  width: size.width * 0.5,
                   child: Image.network(
                     width: 200,
                     height: 200,
