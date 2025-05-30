@@ -6,6 +6,7 @@ import 'package:weather_app/Pages/widgets/cloud.dart';
 import 'package:weather_app/Pages/widgets/humidity.dart';
 import 'package:weather_app/Pages/widgets/pressure.dart';
 import 'package:weather_app/Pages/widgets/search_widget.dart';
+import 'package:weather_app/Pages/widgets/todaForcastsCart.dart';
 import 'package:weather_app/Pages/widgets/windSpeed.dart';
 
 class WeatherScreen extends StatelessWidget {
@@ -13,6 +14,11 @@ class WeatherScreen extends StatelessWidget {
 
   final ThemeController _themeController = Get.find();
   final WeatherscreenController _weatherscreenController = Get.find();
+
+  // String formatTime(String timeString) {
+  //   final DateTime time = DateTime.parse(timeString);
+  //   return DateFormat.j().format(time);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +82,7 @@ class WeatherScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                '${_weatherscreenController.location.value} , ${_weatherscreenController.country.value.isNotEmpty ? _weatherscreenController.country : ''}',
+                '${_weatherscreenController.location.value} , ${_weatherscreenController.country.value}',
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontSize: 25,
@@ -91,10 +97,9 @@ class WeatherScreen extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              // ... other widgets
-              // const SizedBox(height: 20),
+
               Text(
-                _weatherscreenController.condition.value.isNotEmpty
+                _weatherscreenController.condition.value.isNotEmpty == true
                     ? _weatherscreenController.condition.value
                     : 'No condition data',
                 style: TextStyle(
@@ -150,6 +155,7 @@ class WeatherScreen extends StatelessWidget {
                         Pressure(
                           weatherscreenController: _weatherscreenController,
                         ),
+
                         WindSpeed(
                           weatherscreenController: _weatherscreenController,
                         ),
@@ -160,12 +166,137 @@ class WeatherScreen extends StatelessWidget {
                         ),
 
                         // for hourly forecast
-                        // HourlyForcasts(weatherscreenController: _weatherscreenController),
+                        // HourlyForcasts(
+                        //   weatherscreenController: _weatherscreenController,
+                        // ),
                       ],
                     ),
                   ),
                 ),
               ),
+              SizedBox(height: 15),
+
+              // for today forecast
+              TodayForecastCard(hourly: _weatherscreenController.hourly),
+
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              //   child: Container(
+              //     height: 250,
+              //     width: double.infinity,
+              //     decoration: BoxDecoration(
+              //       color: Theme.of(context).primaryColor,
+              //       boxShadow: [
+              //         BoxShadow(
+              //           color: Theme.of(context).colorScheme.shadow,
+              //           blurRadius: 10,
+              //           offset: const Offset(1, 1),
+              //           spreadRadius: 1,
+              //         ),
+              //       ],
+              //       borderRadius: BorderRadius.circular(20),
+              //     ),
+              //     child: Column(
+              //       children: [
+              //         SizedBox(height: 10),
+              //         Padding(
+              //           padding: const EdgeInsets.symmetric(
+              //             horizontal: 20,
+              //             vertical: 10,
+              //           ),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //             children: [
+              //               Text(
+              //                 'Today Forecast',
+              //                 style: TextStyle(
+              //                   color:
+              //                       Theme.of(
+              //                         context,
+              //                       ).textTheme.bodyLarge?.color,
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.bold,
+              //                 ),
+              //               ),
+              //               GestureDetector(
+              //                 onTap: () {},
+              //                 child: Text(
+              //                   'Weekly Forecast',
+              //                   style: TextStyle(
+              //                     color:
+              //                         Theme.of(
+              //                           context,
+              //                         ).textTheme.bodyLarge?.color,
+              //                     fontSize: 18,
+              //                     fontWeight: FontWeight.bold,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //         Divider(
+              //           color:
+              //               _themeController.isDarkMode.value
+              //                   ? Colors.white
+              //                   : Colors.black,
+              //           // Theme.of(context).colorScheme.shadow,
+              //           indent: 20,
+              //           endIndent: 20,
+              //         ),
+              //         SizedBox(height: 20),
+              //         SizedBox(
+              //           height: 150,
+              //           child: ListView.builder(
+              //             scrollDirection: Axis.horizontal,
+              //             itemCount: _weatherscreenController.hourly.length,
+              //             itemBuilder: (context, index) {
+              //               final hour = _weatherscreenController.hourly[index];
+              //               print('hour:$hour');
+              //               final now = DateTime.now();
+              //               final hourTime = DateTime.parse(hour['time']);
+              //               final isCurrentHour =
+              //                   now.hour == hourTime.hour &&
+              //                   now.day == hourTime.day;
+
+              //               return Padding(
+              //                 padding: const EdgeInsets.all(8.0),
+              //                 child: Container(
+              //                   height: 70,
+              //                   padding: const EdgeInsets.all(8.0),
+              //                   decoration: BoxDecoration(
+              //                     color:
+              //                         isCurrentHour
+              //                             ? Colors.orangeAccent
+              //                             : Colors.black38,
+              //                     borderRadius: BorderRadius.circular(40),
+              //                   ),
+              //                   child: Column(
+              //                     children: [
+              //                       Text(
+              //                         isCurrentHour
+              //                             ? 'Now'
+              //                             : formatTime(hour['time']),
+              //                         style: TextStyle(
+              //                           color:
+              //                               Theme.of(
+              //                                 context,
+              //                               ).textTheme.bodyLarge?.color,
+
+              //                           fontWeight: FontWeight.w500,
+              //                         ),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //               );
+              //             },
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         );

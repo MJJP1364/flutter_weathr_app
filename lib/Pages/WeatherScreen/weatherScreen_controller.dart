@@ -43,7 +43,9 @@ class WeatherscreenController extends GetxController {
     errorMessage.value = '';
 
     try {
-      final url = Uri.parse('$_baseUrl/current.json?key=$apikey&q=$query');
+      final url = Uri.parse(
+        '$_baseUrl/current.json?key=$apikey&q=$query&days=1',
+      );
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
