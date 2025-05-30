@@ -5,7 +5,7 @@ class Themes {
     // colorScheme: const ColorScheme.light(),
     useMaterial3: true,
     brightness: Brightness.light,
-    primaryColor: Colors.blue[300],
+    primaryColor: const Color.fromARGB(255, 121, 166, 200),
     hintColor: Colors.orange,
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: Colors.black, fontSize: 16),
